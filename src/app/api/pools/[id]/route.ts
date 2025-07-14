@@ -23,7 +23,7 @@ export async function GET(
       pool,
       success: true
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch pool details', success: false },
       { status: 500 }

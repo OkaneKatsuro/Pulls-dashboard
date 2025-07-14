@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       total: filteredPools.length,
       success: true
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch pools', success: false },
       { status: 500 }

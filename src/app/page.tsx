@@ -28,7 +28,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     applyFiltersAndSort();
-  }, [filters, sortConfig]);
+  }, [filters, sortConfig, applyFiltersAndSort]);
 
   const handleSort = (key: keyof MiningPool) => {
     const newDirection = sortConfig?.key === key && sortConfig.direction === 'asc' ? 'desc' : 'asc';

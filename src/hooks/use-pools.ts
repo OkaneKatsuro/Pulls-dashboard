@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { MiningPool, PoolFilters, SortConfig } from '@/types/mining-pool';
 
 interface UsePoolsOptions {
@@ -18,7 +18,7 @@ export function usePools(options: UsePoolsOptions = {}): UsePoolsReturn {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPools = async () => {
+  const fetchPools = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -50,11 +50,11 @@ export function usePools(options: UsePoolsOptions = {}): UsePoolsReturn {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [options.filters, options.sortConfig]);
 
   useEffect(() => {
     fetchPools();
-  }, [options.filters, options.sortConfig]);
+  }, [options.filters, options.sortConfig, fetchPools]);
 
   return {
     pools,

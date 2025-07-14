@@ -56,7 +56,7 @@ export const usePoolsStore = create<PoolsStore>((set, get) => ({
   applyFiltersAndSort: () => {
     const { pools, filters, sortConfig } = get();
     
-    let filtered = pools.filter((pool) => {
+    const filtered = pools.filter((pool) => {
       const matchesAlgorithm = !filters.algorithm || pool.algorithm === filters.algorithm;
       const matchesStatus = !filters.status || pool.status === filters.status;
       const matchesRegion = !filters.region || pool.region === filters.region;

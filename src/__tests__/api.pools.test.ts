@@ -28,6 +28,6 @@ describe('API /api/pools', () => {
   it('should filter pools by status', async () => {
     const res = await request(API_BASE_URL).get('/api/pools?status=active');
     expect(res.status).toBe(200);
-    expect(res.body.pools.every((pool: any) => pool.status === 'active')).toBe(true);
+    expect(res.body.pools.every((pool: { status: string }) => pool.status === 'active')).toBe(true);
   });
 }); 
