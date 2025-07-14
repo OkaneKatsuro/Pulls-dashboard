@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+## Структура проекта
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API маршруты
+│   │   └── pools/        # API эндпоинты майнинг пулов
+│   ├── globals.css       # Глобальные стили
+│   ├── layout.tsx        # Корневой layout с провайдером темы
+│   └── page.tsx          # Главная страница дашборда
+├── components/            # React компоненты
+│   ├── pools/            # Специфичные для майнинг пулов компоненты
+│   ├── providers/        # Провайдеры контекста
+│   └── ui/               # shadcn/ui компоненты
+├── data/                 # Мок данные и константы
+├── hooks/                # Кастомные React хуки
+├── store/                # Zustand управление состоянием
+├── types/                # TypeScript типы
+└── lib/                  # Утилитарные функции
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Доступные скрипты
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run dev` - Запуск сервера разработки
+- `npm run build` - Сборка для продакшена
+- `npm run start` - Запуск продакшен сервера
+- `npm run lint` - Запуск ESLint
+- `npm test` - Запуск тестов
+- `npm run test:watch` - Запуск тестов в режиме наблюдения
+- `npm run test:api` - Запуск только API тестов
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Тестирование
 
-To learn more about Next.js, take a look at the following resources:
+Проект включает smoke-тесты для API эндпоинтов:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Запуск всех тестов
+npm test
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Запуск только API тестов
+npm run test:api
 
-## Deploy on Vercel
+# Запуск тестов в режиме наблюдения
+npm run test:watch
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Docker
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Сборка и запуск приложения с помощью Docker:
+
+```bash
+# Сборка образа
+docker build -t mining-pools-dashboard .
+
+# Запуск контейнера
+docker run -p 3000:3000 mining-pools-dashboard
+```
+
+## CI/CD
+
+Проект включает GitHub Actions workflow, который запускается при push в ветки main/develop и pull requests:
+
+- **Test**: Запускает линтинг, тесты и сборку 
+- **Docker**: Собирает и тестирует Docker образ
+
